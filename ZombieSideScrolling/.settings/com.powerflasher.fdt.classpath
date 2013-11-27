@@ -14,6 +14,4 @@
     <AS3Classpath generateProblems="false" sdkBased="true" type="lib" useAsSharedCode="false">frameworks/libs/air/servicemonitor.swc</AS3Classpath>
     <AS3Classpath generateProblems="true" sdkBased="false" type="source" useAsSharedCode="false">src</AS3Classpath>
     <AS3Classpath generateProblems="false" sdkBased="false" type="lib" useAsSharedCode="false">lib/SpriterAS.swc</AS3Classpath>
-    <AS3Classpath generateProblems="false" sdkBased="false" type="lib" useAsSharedCode="false">lib/MonsterDebugger.swc</AS3Classpath>
-    <AS3Classpath generateProblems="true" sdkBased="false" type="source" useAsSharedCode="false">lib/src</AS3Classpath>
 </AS3Classpath>
