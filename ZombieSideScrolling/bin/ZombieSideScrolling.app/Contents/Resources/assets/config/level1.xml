@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level1>
+	<assets>
+		<asset type="texture" file="assets/backdrops/backdrop.png" id="backdrop" />
+		<asset type="sprite" file="assets/entities/brawler/brawler.scml"
+			id="brawler" />
+		<asset type="sprite" file="assets/entities/imp/imp.scml"
+			id="imp" />
+		<asset type="sprite" file="assets/entities/mage/mage.scml"
+			id="mage" />
+		<asset type="sprite" file="assets/entities/orc/orc.scml"
+			id="orc" />
+	</assets>
+
+	<background image="backdrop" />
+
+	<entities>
+		<entity type="Player" spriteName="brawler" startAnim="idle"
+			startPos="100,300" scaling="0.5" moveSpeed="5.0" />
+		
+		<entity type="Entity" spriteName="imp" startAnim="idle"
+			startPos="300,300" scaling="0.5" moveSpeed="5.0" />
+		
+		<entity type="Entity" spriteName="mage" startAnim="idle"
+			startPos="150,300" scaling="0.5" moveSpeed="5.0" />
+		
+		<entity type="Entity" spriteName="orc" startAnim="idle"
+			startPos="350,400" scaling="0.5" moveSpeed="5.0" />
+	</entities>
+</Level1>
