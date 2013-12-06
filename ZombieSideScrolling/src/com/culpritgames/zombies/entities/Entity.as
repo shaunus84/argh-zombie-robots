@@ -1,5 +1,6 @@
 package com.culpritgames.zombies.entities
 {
+	import flash.geom.Rectangle;
 	import starling.core.Starling;
 	import starling.display.Sprite;
 	import treefortress.spriter.SpriterClip;
@@ -103,9 +104,19 @@ package com.culpritgames.zombies.entities
 			});
 		}
 
-		public function getY():Number
+		public override function get y():Number
 		{
 			return _spriterClip.y;
+		}
+
+		public function getBoundingRect():Rectangle
+		{
+			return new Rectangle(_spriterClip.x, _spriterClip.y, _spriterClip.width * _scaling, _spriterClip.height * _scaling);
+		}
+
+		public function get spriterClip():SpriterClip
+		{
+			return _spriterClip;
 		}
 	}
 }

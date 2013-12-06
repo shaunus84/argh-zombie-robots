@@ -6,6 +6,7 @@ package com.culpritgames.zombies
 	import starling.display.Stage;
 	import starling.events.Event;
 	import com.culpritgames.zombies.core.AssetLoader;
+	import com.culpritgames.zombies.core.QuadTree;
 	import com.culpritgames.zombies.entities.EntityFactory;
 	import com.culpritgames.zombies.entities.IEntity;
 	import com.culpritgames.zombies.events.ZombieEvents;
@@ -13,11 +14,13 @@ package com.culpritgames.zombies
 	import flash.filesystem.FileMode;
 	import flash.filesystem.FileStream;
 	import flash.geom.Point;
+	import flash.geom.Rectangle;
 
 	public class ZombieSideScrolling extends starling.display.Sprite
 	{
 		private var _entities:Vector.<IEntity> = new Vector.<IEntity>();
 		private var _levelXML:XML;
+		private var _quadtree:QuadTree = new QuadTree(0, new Rectangle(0, 0, 640, 480));
 
 		public function ZombieSideScrolling()
 		{
@@ -39,9 +42,9 @@ package com.culpritgames.zombies
 		{
 			DEFINE::LOCAL
 			{
-			var file:File = File.documentsDirectory.resolvePath(levelFile);
+				var file:File = File.documentsDirectory.resolvePath(levelFile);
 			}
-			
+
 			DEFINE::PACKAGE
 			{
 				var file:File = File.applicationDirectory.resolvePath(levelFile);
@@ -60,7 +63,7 @@ package com.culpritgames.zombies
 		private function onAssetsLoaded(e:ZombieEvents):void
 		{
 			var image:Image = Image.fromBitmap(AssetLoader.getInstance().getTexture("backdrop"));
-			Starling.current.stage.addChild(image);
+			// Starling.current.stage.addChild(image);
 
 			var entities:XMLList = _levelXML.entities.entity;
 
@@ -77,32 +80,49 @@ package com.culpritgames.zombies
 
 		private function update(event:starling.events.Event):void
 		{
-			sortChildrenByY(Starling.current.stage);
+			_quadtree.clear();
 			if (_entities && _entities.length > 0)
 			{
 				for (var i:int = 0; i < _entities.length; i++)
 				{
-					_entities[i].update();
+					_quadtree.insert(_entities[i]);
+				}
+			}
+
+			sortChildrenByY();
+
+			if (_entities && _entities.length > 0)
+			{
+				for (var j:int = 0; j < _entities.length; j++)
+				{
+					_entities[j].update();
 				}
 			}
 		}
 
-		function sortChildrenByY(container:Stage):void
+		function sortChildrenByY():void
 		{
-			var i:int;
-			var childList:Array = new Array();
-			i = container.numChildren;
-			while (i--)
+			if (_entities && _entities.length > 0)
 			{
-				childList[i] = container.getChildAt(i);
-			}
-			childList.sortOn("y", Array.NUMERIC);
-			i = container.numChildren;
-			while (i--)
-			{
-				if (childList[i] != container.getChildAt(i))
+				var objs:Vector.<IEntity>;
+				for (var i:int = 0; i < _entities.length; i++)
 				{
-					container.setChildIndex(childList[i], i);
+					objs = new Vector.<IEntity>();
+					_quadtree.retrieve(objs, _entities[i]);
+
+					var j:int;
+					var childList:Array = new Array();
+					j = objs.length;
+					while (j--)
+					{
+						childList[j] = objs[j];
+					}
+					childList.sortOn("y", Array.NUMERIC);
+					j = objs.length;
+					for (var k:int = objs.length - 1; k >= 0; k--)
+					{
+						Starling.current.stage.setChildIndex(IEntity(childList[k]).spriterClip, k);
+					}
 				}
 			}
 		}
