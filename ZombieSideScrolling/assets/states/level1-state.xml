@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Level1>
+	<assets>
+		<asset type="texture" file="backdrops/lab.jpg" id="lab" />
+		<asset type="texture" file="entity-script-images/face1.png" id="face1" />
+		<asset type="texture" file="entity-script-images/face2.png" id="face2" />
+		<asset type="sprite" file="zombie2/Final.scml"
+			id="Final" />
+	</assets>
+
+	<background image="lab" />
+
+	<entities>
+		
+	</entities>
+</Level1>

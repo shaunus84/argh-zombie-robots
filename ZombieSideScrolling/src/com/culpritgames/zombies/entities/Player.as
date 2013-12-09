@@ -1,6 +1,7 @@
 package com.culpritgames.zombies.entities
 {
 	import starling.core.Starling;
+	import starling.display.Sprite;
 	import starling.events.KeyboardEvent;
 	import flash.geom.Point;
 
@@ -18,9 +19,9 @@ package com.culpritgames.zombies.entities
 		{
 		}
 
-		public override function create(spriteName:String, startAnim:String, startPos:Point, scaling:Number, moveSpeed:Number):void
+		public override function create(container:Sprite, spriteName:String, startAnim:String, startPos:Point, scaling:Number, moveSpeed:Number):void
 		{
-			super.create(spriteName, startAnim, startPos, scaling, moveSpeed);
+			super.create(container, spriteName, startAnim, startPos, scaling, moveSpeed);
 
 			Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 			Starling.current.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);

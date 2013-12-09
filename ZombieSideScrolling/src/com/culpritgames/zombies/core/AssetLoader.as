@@ -1,15 +1,14 @@
 package com.culpritgames.zombies.core
 {
-	import treefortress.spriter.SpriterClip;
-	import flash.display.BitmapData;
 	import starling.display.Sprite;
+	import treefortress.spriter.SpriterClip;
 	import treefortress.spriter.SpriterLoader;
+	import com.culpritgames.zombies.FileNameResolver;
 	import com.culpritgames.zombies.events.ZombieEvents;
 	import flash.display.Bitmap;
 	import flash.display.Loader;
 	import flash.display.LoaderInfo;
 	import flash.events.Event;
-	import flash.filesystem.File;
 	import flash.net.URLRequest;
 
 	/**
@@ -21,7 +20,7 @@ package com.culpritgames.zombies.core
 		private var textures:Array = new Array();
 		private var _currentNumAssetsRemaining:int;
 		public static var _scaling:Number;
-		private static var spriterLoader:SpriterLoader = new SpriterLoader();
+		private var spriterLoader:SpriterLoader = new SpriterLoader();
 		private var spritesToLoad:Array = new Array();
 
 		public function AssetLoader(enforcer:SingletonEnforcer):void
@@ -55,6 +54,24 @@ package com.culpritgames.zombies.core
 			return _instance;
 		}
 
+		public function clearAssets():void
+		{
+			// clear bitmaps
+			for (var i:int = 0; i < textures.length; i++)
+			{
+				Bitmap(textures[i]).bitmapData.dispose();
+				Bitmap(textures[i]).bitmapData = null;
+
+				var b:Bitmap = Bitmap(textures[i]);
+				b = null;
+			}
+
+			// clear sprites
+			spriterLoader.disposeTextures();
+			spriterLoader = null;
+			spriterLoader = new SpriterLoader();
+		}
+
 		public function loadAssets(list:XMLList):void
 		{
 			_currentNumAssetsRemaining = list.length();
@@ -63,16 +80,7 @@ package com.culpritgames.zombies.core
 			{
 				if (list[i].@type == "sprite")
 				{
-					DEFINE::LOCAL
-					{
-						spritesToLoad.push(File.documentsDirectory.resolvePath("workspace/ZombieSideScrolling/" + list[i].@file).url);
-					}
-
-					DEFINE::PACKAGE
-					{
-						spritesToLoad.push(File.applicationDirectory.resolvePath(list[i].@file).url);
-
-					}
+					spritesToLoad.push(FileNameResolver.resolveFilename(FileNameResolver.SPRITES_LOCATION + list[i].@file).url);
 				}
 				else if (list[i].@type == "texture")
 				{
@@ -114,15 +122,7 @@ package com.culpritgames.zombies.core
 				}
 			});
 
-			DEFINE::LOCAL
-			{
-				loader.load(new URLRequest(File.documentsDirectory.resolvePath("workspace/ZombieSideScrolling/" + fileName).url));
-			}
-
-			DEFINE::PACKAGE
-			{
-				loader.load(new URLRequest(File.applicationDirectory.resolvePath(fileName).url));
-			}
+			loader.load(new URLRequest(FileNameResolver.resolveFilename(FileNameResolver.TEXTURES_LOCATION + fileName).url));
 		}
 	}
 }
