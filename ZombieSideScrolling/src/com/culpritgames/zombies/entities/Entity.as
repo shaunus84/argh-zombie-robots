@@ -118,5 +118,10 @@ package com.culpritgames.zombies.entities
 		{
 			return _spriterClip;
 		}
+
+		public function get playingAttack() : Boolean 
+		{
+			return _playingAttack;
+		}
 	}
 }

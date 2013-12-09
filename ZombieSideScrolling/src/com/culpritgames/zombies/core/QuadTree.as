@@ -1,6 +1,7 @@
-package core
+package com.culpritgames.zombies.core 
 {
-	import entities.IEntity;
+	import com.culpritgames.zombies.entities.IEntity;
+
 	import flash.geom.Rectangle;
 
 	/**

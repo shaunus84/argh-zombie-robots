@@ -1,4 +1,4 @@
-package maths
+package com.culpritgames.zombies.maths
 {
     /**
      * A 2d Vector class to perform constant operations. Use this class to make sure that objects stay consts, e.g.

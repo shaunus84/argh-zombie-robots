@@ -1,4 +1,4 @@
-package entities
+package com.culpritgames.zombies.entities
 {
 	import starling.core.Starling;
 	import starling.display.Sprite;

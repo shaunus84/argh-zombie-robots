@@ -1,4 +1,4 @@
-package entities
+package com.culpritgames.zombies.entities
 {
 	import starling.display.Sprite;
 	import treefortress.spriter.SpriterClip;
