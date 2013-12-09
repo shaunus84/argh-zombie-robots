@@ -1,4 +1,4 @@
-package com.culpritgames.zombies.maths 
+package maths 
 {
     /**
      * A 2d Vector class to that is mutable.

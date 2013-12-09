@@ -1,4 +1,4 @@
-package com.culpritgames.zombies
+package 
 {
 	import starling.core.Starling;
 	import flash.display.Sprite;

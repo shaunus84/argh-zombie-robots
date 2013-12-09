@@ -1,4 +1,4 @@
-package com.culpritgames.zombies.entities
+package entities
 {
 	import treefortress.spriter.SpriterClip;
 	import flash.geom.Point;
@@ -14,5 +14,6 @@ package com.culpritgames.zombies.entities
 		function get y():Number;
 		function getBoundingRect():Rectangle;
 		function get spriterClip():SpriterClip;
+		function get playingAttack() : Boolean;
 	}
 }

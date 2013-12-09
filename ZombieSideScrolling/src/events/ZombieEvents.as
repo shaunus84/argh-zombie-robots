@@ -1,4 +1,4 @@
-package com.culpritgames.zombies.events
+package events
 {
 	import starling.events.Event;
 	/**

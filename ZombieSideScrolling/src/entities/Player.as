@@ -1,4 +1,4 @@
-package com.culpritgames.zombies.entities
+package entities
 {
 	import starling.core.Starling;
 	import starling.events.KeyboardEvent;

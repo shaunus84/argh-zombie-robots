@@ -1,22 +1,25 @@
-package com.culpritgames.zombies
+package 
 {
+	import core.AssetLoader;
+	import core.QuadTree;
+
+	import entities.EntityFactory;
+	import entities.IEntity;
+
+	import events.ZombieEvents;
+
 	import starling.core.Starling;
 	import starling.display.Image;
 	import starling.display.Sprite;
-	import starling.display.Stage;
 	import starling.events.Event;
-	import com.culpritgames.zombies.core.AssetLoader;
-	import com.culpritgames.zombies.core.QuadTree;
-	import com.culpritgames.zombies.entities.EntityFactory;
-	import com.culpritgames.zombies.entities.IEntity;
-	import com.culpritgames.zombies.events.ZombieEvents;
+
 	import flash.filesystem.File;
 	import flash.filesystem.FileMode;
 	import flash.filesystem.FileStream;
 	import flash.geom.Point;
 	import flash.geom.Rectangle;
-
-	public class ZombieSideScrolling extends starling.display.Sprite
+	
+	public class ZombieSideScrolling extends Sprite
 	{
 		private var _entities:Vector.<IEntity> = new Vector.<IEntity>();
 		private var _levelXML:XML;
@@ -27,7 +30,7 @@ package com.culpritgames.zombies
 			AssetLoader._scaling = 0.5;
 			DEFINE::LOCAL
 			{
-				loadLevel("workspace/ZombieSideScrolling/assets/config/level1.xml");
+				loadLevel("as3-workspace/argh-zombie-robots/ZombieSideScrolling/assets/config/level1.xml");
 			}
 
 			DEFINE::PACKAGE
@@ -65,13 +68,13 @@ package com.culpritgames.zombies
 			var image:Image = Image.fromBitmap(AssetLoader.getInstance().getTexture("backdrop"));
 			// Starling.current.stage.addChild(image);
 
-			var entities:XMLList = _levelXML.entities.entity;
+			var ents:XMLList = _levelXML.entities.entity;
 
-			for (var i:int = 0; i < entities.length(); i++)
+			for (var i:int = 0; i < ents.length(); i++)
 			{
-				var entity:IEntity = EntityFactory.getInstance().createNew(entities[i].@type);
-				var pos:Array = String(entities[i].@startPos).split(',');
-				entity.create(entities[i].@spriteName, entities[i].@startAnim, new Point(Number(pos[0]), Number(pos[1])), Number(entities[i].@scaling), Number(entities[i].@moveSpeed));
+				var entity:IEntity = EntityFactory.getInstance().createNew(ents[i].@type);
+				var pos:Array = String(ents[i].@startPos).split(',');
+				entity.create(ents[i].@spriteName, ents[i].@startAnim, new Point(Number(pos[0]), Number(pos[1])), Number(ents[i].@scaling), Number(ents[i].@moveSpeed));
 				_entities.push(entity);
 			}
 
@@ -100,7 +103,7 @@ package com.culpritgames.zombies
 			}
 		}
 
-		function sortChildrenByY():void
+		private function sortChildrenByY():void
 		{
 			if (_entities && _entities.length > 0)
 			{
@@ -117,7 +120,7 @@ package com.culpritgames.zombies
 					{
 						childList[j] = objs[j];
 					}
-					childList.sortOn("y", Array.NUMERIC);
+					childList.sort(sortYandAttack);
 					j = objs.length;
 					for (var k:int = objs.length - 1; k >= 0; k--)
 					{
@@ -125,6 +128,21 @@ package com.culpritgames.zombies
 					}
 				}
 			}
+		}
+		
+		function sortYandAttack(a:IEntity, b:IEntity):int
+		{
+			if(a.y > b.y)
+			{
+				return 1;
+			}
+			
+			if(a.playingAttack)
+			{
+				return 1;
+			}
+			
+			return -1;
 		}
 	}
 }

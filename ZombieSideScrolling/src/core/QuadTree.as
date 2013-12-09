@@ -1,6 +1,6 @@
-package com.culpritgames.zombies.core
+package core
 {
-	import com.culpritgames.zombies.entities.IEntity;
+	import entities.IEntity;
 	import flash.geom.Rectangle;
 
 	/**
@@ -28,6 +28,9 @@ package com.culpritgames.zombies.core
 		{
 			_objects.splice(0, _objects.length);
 			_nodes.splice(0, _nodes.length);
+			
+			_objects = null;
+			_nodes = null;
 			
 			_nodes = new Vector.<QuadTree>(4, true);
 			_objects = new Vector.<IEntity>();
