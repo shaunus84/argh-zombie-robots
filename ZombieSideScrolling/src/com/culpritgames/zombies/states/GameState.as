@@ -1,23 +1,17 @@
-package com.culpritgames.zombies.states
-{
-	import com.culpritgames.zombies.core.ScriptedSequence;
-	import flash.utils.setTimeout;
-	import starling.utils.VAlign;
-	import starling.utils.HAlign;
-	import starling.text.TextField;
+package com.culpritgames.zombies.states {
 	import starling.core.Starling;
-	import starling.display.BlendMode;
 	import starling.display.Image;
-	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;
+
 	import com.culpritgames.zombies.FileNameResolver;
-	import com.culpritgames.zombies.Main;
 	import com.culpritgames.zombies.core.AssetLoader;
 	import com.culpritgames.zombies.core.QuadTree;
+	import com.culpritgames.zombies.core.ScriptedSequence;
 	import com.culpritgames.zombies.entities.EntityFactory;
 	import com.culpritgames.zombies.entities.IEntity;
 	import com.culpritgames.zombies.events.ZombieEvents;
+
 	import flash.filesystem.File;
 	import flash.filesystem.FileMode;
 	import flash.filesystem.FileStream;

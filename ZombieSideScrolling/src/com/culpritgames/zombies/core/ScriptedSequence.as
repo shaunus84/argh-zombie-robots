@@ -1,5 +1,5 @@
-package com.culpritgames.zombies.core
-{
+package com.culpritgames.zombies.core {
+	import starling.display.Sprite;
 	import starling.events.KeyboardEvent;
 	import starling.core.Starling;
 	import starling.display.BlendMode;
@@ -9,8 +9,10 @@ package com.culpritgames.zombies.core
 	import starling.text.TextField;
 	import starling.utils.HAlign;
 	import starling.utils.VAlign;
+
 	import com.culpritgames.zombies.FileNameResolver;
 	import com.culpritgames.zombies.events.ZombieEvents;
+
 	import flash.filesystem.File;
 	import flash.filesystem.FileMode;
 	import flash.filesystem.FileStream;
@@ -19,31 +21,30 @@ package com.culpritgames.zombies.core
 	/**
 	 * @author shaun.mitchell
 	 */
-	public class ScriptedSequence
-	{
-		private var _frames:Vector.<IScriptFrame> = new Vector.<IScriptFrame>();
-		private var _scriptXML:XML;
-		private var _currentChar:int = 0;
-		private var _maxLength:int = 0;
-		private var _tf:TextField;
-		private var _scriptBuffer:String;
-		private var _textQuad:Quad;
-		private var _leftImageName:String;
-		private var _rightImageName:String;
-		private var _leftImage:Image;
-		private var _rightImage:Image;
-		private var _currentFrame:int = 0;
-		private var _currentScript:int = 0;
-		private var _numScripts:int = 0;
-		private var _maxFrames:int = 0;
+	public class ScriptedSequence {
+		private var _frames : Vector.<IScriptFrame> = new Vector.<IScriptFrame>();
+		private var _scriptXML : XML;
+		private var _currentChar : int = 0;
+		private var _maxLength : int = 0;
+		private var _tf : TextField;
+		private var _scriptBuffer : String;
+		private var _textQuad : Quad;
+		private var _leftImageName : String;
+		private var _rightImageName : String;
+		private var _leftImage : Image;
+		private var _rightImage : Image;
+		private var _currentFrame : int = 0;
+		private var _currentScript : int = 0;
+		private var _numScripts : int = 0;
+		private var _maxFrames : int = 0;
+		private var _imageContainer:Sprite = new Sprite();
 
-		public function loadSequence(scriptFile:String):void
-		{
-			var file:File = FileNameResolver.resolveFilename(FileNameResolver.ASSETS_LOCATION + "/script/scripts/" + scriptFile);
+		public function loadSequence(scriptFile : String) : void {
+			var file : File = FileNameResolver.resolveFilename(FileNameResolver.ASSETS_LOCATION + "/script/scripts/" + scriptFile);
 
-			var fs:FileStream = new FileStream();
+			var fs : FileStream = new FileStream();
 			fs.open(file, FileMode.READ);
-			var text:String = fs.readUTFBytes(file.size);
+			var text : String = fs.readUTFBytes(file.size);
 
 			_scriptXML = XML(text);
 
@@ -52,9 +53,8 @@ package com.culpritgames.zombies.core
 			AssetLoader.getInstance().loadAssets(_scriptXML.assets.asset);
 		}
 
-		private function onAssetsLoaded(event:ZombieEvents):void
-		{
-			var image:Image = Image.fromBitmap(AssetLoader.getInstance().getTexture("lab"));
+		private function onAssetsLoaded(event : ZombieEvents) : void {
+			var image : Image = Image.fromBitmap(AssetLoader.getInstance().getTexture("lab"));
 			Starling.current.stage.addChild(image);
 
 			_textQuad = new Quad(Starling.current.stage.width * 0.85, Starling.current.stage.height * 0.3, 0x9899ff99, false);
@@ -63,10 +63,10 @@ package com.culpritgames.zombies.core
 			_textQuad.y = ((Starling.current.stage.height * 0.95) - _textQuad.height);
 			Starling.current.stage.addChild(_textQuad);
 
-			var leftImage:Image = Image.fromBitmap(AssetLoader.getInstance().getTexture("face1"));
+			var leftImage : Image = Image.fromBitmap(AssetLoader.getInstance().getTexture("face1"));
 			Starling.current.stage.addChild(leftImage);
 
-			var rightImage:Image = Image.fromBitmap(AssetLoader.getInstance().getTexture("face2"));
+			var rightImage : Image = Image.fromBitmap(AssetLoader.getInstance().getTexture("face2"));
 			rightImage.x = Starling.current.stage.width - rightImage.width;
 			Starling.current.stage.addChild(rightImage);
 
@@ -81,70 +81,60 @@ package com.culpritgames.zombies.core
 			Starling.current.stage.addChild(_tf);
 
 			_maxLength = _scriptBuffer.length;
+			
+			Starling.current.stage.addChild(_imageContainer);
 
 			// setTimeout(updateMessage, 50);
 
 			populateFrames();
 		}
 
-		private function populateFrames():void
-		{
-			var frames:XMLList = _scriptXML.scripts.frames.frame;
+		private function populateFrames() : void {
+			var frames : XMLList = _scriptXML.scripts.frames.frame;
 			trace(String(frames))
-			for (var i:int = 0; i < frames.length(); i++)
-			{
-				var newframe:IScriptFrame = new ScriptFrame();
+			for (var i : int = 0; i < frames.length(); i++) {
+				var newframe : IScriptFrame = new ScriptFrame();
 				newframe.imageLeft = frames[i].@leftImage;
 				newframe.imageRight = frames[i].@rightImage;
 
-				var scripts:XMLList = frames[i].script;
+				var scripts : XMLList = frames[i].script;
 				trace(String(scripts))
-				for (var j:int = 0; j < scripts.length(); j++)
-				{
-					var scriptValue:ScriptValue = new ScriptValue(scripts[j], scripts[j].@speaker);
+				for (var j : int = 0; j < scripts.length(); j++) {
+					var scriptValue : ScriptValue = new ScriptValue(scripts[j], scripts[j].@speaker);
 					newframe.scripts.push(scriptValue);
 				}
 
 				_frames.push(newframe);
 			}
-			
+
 			start();
 		}
 
-		private function updateMessage():void
-		{
+		private function updateMessage() : void {
 			_tf.text += _scriptBuffer.charAt(_currentChar);
 			_currentChar++;
 
-			if (_currentChar <= _maxLength)
-			{
+			if (_currentChar <= _maxLength) {
 				setTimeout(updateMessage, 50);
-			}
-			else
-			{
+			} else {
 				Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onSkipToNext);
 			}
 		}
 
-		private function onSkipToNext(event:KeyboardEvent):void
-		{
+		private function onSkipToNext(event : KeyboardEvent) : void {
 			Starling.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, onSkipToNext);
 
 			_currentScript++;
 
-			if (_currentScript >= _numScripts)
-			{
+			if (_currentScript >= _numScripts) {
 				_currentFrame++;
 				incrementFrame();
-			}
-			else
-			{
+			} else {
 				incrementScript();
 			}
 		}
 
-		private function incrementScript():void
-		{
+		private function incrementScript() : void {
 			_tf.text = "";
 			_currentChar = 0;
 
@@ -155,60 +145,45 @@ package com.culpritgames.zombies.core
 			setTimeout(updateMessage, 50);
 		}
 
-		private function incrementFrame():void
-		{
+		private function incrementFrame() : void {
 			_tf.text = "";
 			_currentChar = 0;
+			_currentScript = 0;
 			// get images for this frame
 			_leftImageName = _frames[_currentFrame].imageLeft;
 			_rightImageName = _frames[_currentFrame].imageRight;
 
 			// remove any old ones
-			if (Starling.current.stage.contains(_leftImage))
-			{
-				Starling.current.stage.removeChild(_leftImage);
-			}
-
-			if (Starling.current.stage.contains(_rightImage))
-			{
-				Starling.current.stage.removeChild(_rightImage);
-			}
+			_imageContainer.removeChildren(0, _imageContainer.numChildren, true);
+			Starling.current.stage.removeChild(_imageContainer, true);
+			
+			_imageContainer = null;
+			_imageContainer = new Sprite();
 
 			// add new ones
-			_leftImage = Image.fromBitmap(AssetLoader.getInstance().getTexture(_leftImageName));
-			Starling.current.stage.addChild(_leftImage);
+			_imageContainer.addChild(Image.fromBitmap(AssetLoader.getInstance().getTexture(_leftImageName)));
 
-			_rightImage = Image.fromBitmap(AssetLoader.getInstance().getTexture(_rightImageName));
-			_rightImage.x = Starling.current.stage.width - _rightImage.width;
-			Starling.current.stage.addChild(_rightImage);
+			var img:Image = Image.fromBitmap(AssetLoader.getInstance().getTexture(_rightImageName));
+			img.x = Starling.current.stage.width - img.width;
+			_imageContainer.addChild(img);
 
 			_numScripts = _frames[_currentFrame].scripts.length;
 
 			_tf.text = _frames[_currentFrame].scripts[0].speaker + "\n\n";
 
 			_scriptBuffer = _frames[_currentFrame].scripts[0].text;
+			
+			Starling.current.stage.addChild(_imageContainer);
 
 			setTimeout(updateMessage, 50);
 		}
 
-		public function start():void
-		{
+		public function start() : void {
 			_tf.text = "";
 			// get images for this frame
 			_leftImageName = _frames[_currentFrame].imageLeft;
 			_rightImageName = _frames[_currentFrame].imageRight;
 
-			// remove any old ones
-			if (Starling.current.stage.contains(_leftImage))
-			{
-				Starling.current.stage.removeChild(_leftImage);
-			}
-
-			if (Starling.current.stage.contains(_rightImage))
-			{
-				Starling.current.stage.removeChild(_rightImage);
-			}
-
 			// add new ones
 			_leftImage = Image.fromBitmap(AssetLoader.getInstance().getTexture(_leftImageName));
 			Starling.current.stage.addChild(_leftImage);
@@ -226,8 +201,7 @@ package com.culpritgames.zombies.core
 			setTimeout(updateMessage, 50);
 		}
 
-		public function remove():void
-		{
+		public function remove() : void {
 		}
 	}
 }

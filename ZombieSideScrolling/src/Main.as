@@ -1,6 +1,9 @@
-package com.culpritgames.zombies
+package 
 {
 	import starling.core.Starling;
+
+	import com.culpritgames.zombies.ZombieSideScrolling;
+
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
