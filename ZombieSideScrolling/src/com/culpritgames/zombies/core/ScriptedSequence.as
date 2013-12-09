@@ -89,18 +89,19 @@ package com.culpritgames.zombies.core
 
 		private function populateFrames():void
 		{
-			var frames:XMLList = _scriptXML.scripts.frames;
+			var frames:XMLList = _scriptXML.scripts.frames.frame;
+			trace(String(frames))
 			for (var i:int = 0; i < frames.length(); i++)
 			{
 				var newframe:IScriptFrame = new ScriptFrame();
-				newframe.imageLeft = frames[0].frame.@leftImage;
-				newframe.imageRight = frames[0].frame.@rightImage;
+				newframe.imageLeft = frames[i].@leftImage;
+				newframe.imageRight = frames[i].@rightImage;
 
-				var scripts:XMLList = frames[0].frame.script;
+				var scripts:XMLList = frames[i].script;
 				trace(String(scripts))
 				for (var j:int = 0; j < scripts.length(); j++)
 				{
-					var scriptValue:ScriptValue = new ScriptValue(scripts[j], scripts[j].@speaker)
+					var scriptValue:ScriptValue = new ScriptValue(scripts[j], scripts[j].@speaker);
 					newframe.scripts.push(scriptValue);
 				}
 
@@ -131,7 +132,7 @@ package com.culpritgames.zombies.core
 
 			_currentScript++;
 
-			if (_currentScript > _numScripts)
+			if (_currentScript >= _numScripts)
 			{
 				_currentFrame++;
 				incrementFrame();
@@ -157,6 +158,7 @@ package com.culpritgames.zombies.core
 		private function incrementFrame():void
 		{
 			_tf.text = "";
+			_currentChar = 0;
 			// get images for this frame
 			_leftImageName = _frames[_currentFrame].imageLeft;
 			_rightImageName = _frames[_currentFrame].imageRight;
