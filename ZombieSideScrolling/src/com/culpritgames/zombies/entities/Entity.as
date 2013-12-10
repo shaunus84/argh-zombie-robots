@@ -23,19 +23,22 @@ package com.culpritgames.zombies.entities
 		protected var _startPos:Point;
 		protected var _scaling:Number;
 		protected var _moveSpeed:Number;
+		protected var _childName:String;
 		protected var _velocity:Vec2 = new Vec2();
 
-		public function create(container:Sprite, spriteName:String, startAnim:String, startPos:Point, scaling:Number, moveSpeed:Number):void
+		public function create(container:Sprite, childName:String, spriteName:String, startAnim:String, startPos:Point, scaling:Number, moveSpeed:Number):void
 		{
 			_spriteName = spriteName;
 			_startAnim = startAnim;
 			_startPos = startPos;
 			_scaling = scaling;
 			_moveSpeed = moveSpeed;
+			_childName = childName;
 			
 			_spriterClip = AssetLoader.getInstance().getSprite(_spriteName);
 			_spriterClip.setPosition(_startPos.x, _startPos.y);
 			_spriterClip.play(_startAnim);
+			_spriterClip.name = _childName;
 			container.addChild(_spriterClip);
 			Starling.juggler.add(_spriterClip);
 

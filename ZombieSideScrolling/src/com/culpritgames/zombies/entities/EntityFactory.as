@@ -11,6 +11,7 @@ package com.culpritgames.zombies.entities
 		public function EntityFactory(enforcer : SingletonEnforcer) : void 
 		{
 			var play:Player; // allow getDefinitionByName to work
+			var ent:Entity; // allow getDefinitionByName to work
 		}
 
 		public static function getInstance() : EntityFactory {
@@ -23,7 +24,7 @@ package com.culpritgames.zombies.entities
 
 		public function createNew(type : String) : IEntity 
 		{
-			var entity : Class = getDefinitionByName("entities." + type) as Class;
+			var entity : Class = getDefinitionByName("com.culpritgames.zombies.entities." + type) as Class;
 			var returnedEntity : IEntity = new entity();
 
 			return returnedEntity;

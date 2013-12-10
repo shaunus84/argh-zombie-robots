@@ -12,7 +12,7 @@
 <booleanAttribute key="DISABLE_COMPILE_PROCESS" value="false"/>
 <stringAttribute key="LAUNCHER_DEPENDENCIES" value="[Self]"/>
 <intAttribute key="LAUNCH_METHOD" value="0"/>
-<stringAttribute key="MAIN_CLASS" value="src/com/culpritgames/zombies/Main.as"/>
+<stringAttribute key="MAIN_CLASS" value="src/Main.as"/>
 <booleanAttribute key="PASS_CP" value="true"/>
 <booleanAttribute key="PASS_DEFINES" value="true"/>
 <booleanAttribute key="PASS_EXTERNS" value="false"/>

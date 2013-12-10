@@ -9,6 +9,7 @@ package com.culpritgames.zombies.core
 		private var _imageLeft:String;
 		private var _imageRight:String;
 		private var _scripts:Vector.<ScriptValue> = new Vector.<ScriptValue>();
+		private var _tweens:Vector.<TweenValue> = new Vector.<TweenValue>();
 		
 		public function set imageLeft(image:String):void
 		{
@@ -33,6 +34,11 @@ package com.culpritgames.zombies.core
 		public function get imageRight():String
 		{
 			return _imageRight;
+		}
+
+		public function get tweens():Vector.<TweenValue>
+		{
+			return _tweens;
 		}
 	}
 }

@@ -14,4 +14,5 @@
     <AS3Classpath generateProblems="false" sdkBased="true" type="lib" useAsSharedCode="false">frameworks/libs/air/applicationupdater.swc</AS3Classpath>
     <AS3Classpath generateProblems="false" sdkBased="true" type="lib" useAsSharedCode="false">frameworks/libs/air/applicationupdater_ui.swc</AS3Classpath>
     <AS3Classpath generateProblems="false" sdkBased="true" type="lib" useAsSharedCode="false">frameworks/libs/air/servicemonitor.swc</AS3Classpath>
+    <AS3Classpath generateProblems="false" sdkBased="false" type="lib" useAsSharedCode="false">lib/greensock.swc</AS3Classpath>
 </AS3Classpath>

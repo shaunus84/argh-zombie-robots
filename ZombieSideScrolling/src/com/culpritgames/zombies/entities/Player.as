@@ -19,9 +19,9 @@ package com.culpritgames.zombies.entities
 		{
 		}
 
-		public override function create(container:Sprite, spriteName:String, startAnim:String, startPos:Point, scaling:Number, moveSpeed:Number):void
+		public override function create(container:Sprite, childName:String, spriteName:String, startAnim:String, startPos:Point, scaling:Number, moveSpeed:Number):void
 		{
-			super.create(container, spriteName, startAnim, startPos, scaling, moveSpeed);
+			super.create(container, childName, spriteName, startAnim, startPos, scaling, moveSpeed);
 
 			Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, onKeyDown);
 			Starling.current.stage.addEventListener(KeyboardEvent.KEY_UP, onKeyUp);

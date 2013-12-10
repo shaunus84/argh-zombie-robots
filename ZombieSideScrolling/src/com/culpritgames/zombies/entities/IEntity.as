@@ -9,7 +9,7 @@ package com.culpritgames.zombies.entities
 	 */
 	public interface IEntity
 	{
-		function create(container:Sprite, spriteName:String, startAnim:String, startPos:Point, scaling:Number, moveSpeed:Number):void
+		function create(container:Sprite, childName:String, spriteName:String, startAnim:String, startPos:Point, scaling:Number, moveSpeed:Number):void
 		function update():void
 		function handleFrameListeners():void;
 		function get y():Number;

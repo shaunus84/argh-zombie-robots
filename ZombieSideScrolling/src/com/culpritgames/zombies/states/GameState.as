@@ -62,7 +62,7 @@ package com.culpritgames.zombies.states {
 			{
 				var entity:IEntity = EntityFactory.getInstance().createNew(ents[i].@type);
 				var pos:Array = String(ents[i].@startPos).split(',');
-				entity.create(_entityContainer, ents[i].@spriteName, ents[i].@startAnim, new Point(Number(pos[0]), Number(pos[1])), Number(ents[i].@scaling), Number(ents[i].@moveSpeed));
+				entity.create(_entityContainer, ents[i].@childName, ents[i].@spriteName, ents[i].@startAnim, new Point(Number(pos[0]), Number(pos[1])), Number(ents[i].@scaling), Number(ents[i].@moveSpeed));
 				_entities.push(entity);
 			}
 

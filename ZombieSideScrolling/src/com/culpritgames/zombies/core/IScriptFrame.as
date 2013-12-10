@@ -1,6 +1,5 @@
 package com.culpritgames.zombies.core
 {
-	import starling.display.Image;
 	/**
 	 * @author shaun.mitchell
 	 */
@@ -13,5 +12,6 @@ package com.culpritgames.zombies.core
 		function get imageRight():String;
 		
 		function get scripts():Vector.<ScriptValue>;
+		function get tweens():Vector.<TweenValue>;
 	}
 }

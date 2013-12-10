@@ -1,31 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Sequence>
-<!-- Assets for this scene -->
-<assets>
-	<asset type="texture" file="backdrops/lab.jpg" id="lab" />
-	<asset type="texture" file="entity-script-images/face1.png" id="face1" />
-	<asset type="texture" file="entity-script-images/face2.png" id="face2" />
-</assets>
+	<!-- Assets for this scene -->
+	<assets>
+		<asset type="texture" file="backdrops/lab.jpg" id="lab" />
+		<asset type="texture" file="entity-script-images/face1.png" id="face1" />
+		<asset type="texture" file="entity-script-images/face2.png" id="face2" />
+		<asset type="sprite" file="zombie2/Final.scml" id="Final" />
+	</assets>
 
-<!-- Script for the scene -->
-<scripts>
-	<frames>
-		<frame leftImage="face1" rightImage="face2">
-			<script speaker="Harold:">
-				Hey, How's it going?
-			</script>
-			<script speaker="Kumar:">
-				I am ok thank you.
-			</script>
-		</frame>
-		<frame leftImage="face2" rightImage="face1">
-			<script speaker="Harold:">
-				Wow, we swapped places!
-			</script>
-			<script speaker="Kumar:">
-				Hells yeah.
-			</script>
-		</frame>
-	</frames>
-</scripts>
+	<entities>
+		<entity type="Entity" spriteName="Final" startAnim="Walk"
+			startPos="350,300" scaling="2" moveSpeed="1.0" childName="Harold" />
+		<entity type="Entity" spriteName="Final" startAnim="Walk"
+			startPos="400,300" scaling="2" moveSpeed="1.0" childName="Kumar" />
+	</entities>
+
+	<!-- Script for the scene -->
+	<scripts>
+		<frames>
+			<!-- Frame 1 -->
+			<frame leftImage="face1" rightImage="face2" keySkip="true">
+				<script speaker="Harold">
+					Hey, How's it going?
+				</script>
+				<script speaker="Kumar">
+					I am ok thank you.
+				</script>
+			</frame>
+			<!-- Frame 2 -->
+			<frame leftImage="face2" rightImage="face1" keySkip="true">
+				<script speaker="Harold">
+					Wow, we swapped places!
+				</script>
+				<script speaker="Kumar">
+					Hells yeah.
+				</script>
+			</frame>
+			<!-- Frame 3 -->
+			<frame leftImage="face2" rightImage="face1" keySkip="true">
+				<script speaker="Harold">
+					Let's walk about a bit!
+				</script>
+				<script speaker="Kumar">
+					Shit yeah, Homie!
+				</script>
+			</frame>
+			<!-- Frame 4 -->
+			<frame leftImage="face2" rightImage="face1" keySkip="false">
+				<tween entityName="Harold" animation="Idle" to="30,350"
+					loopAnim="true" delay="3" />
+				<tween entityName="Kumar" animation="Walk" to="30,350"
+					loopAnim="true" delay="2" />
+			</frame>
+			<!-- Frame 5 -->
+			<frame leftImage="face2" rightImage="face1" keySkip="false">
+				<tween entityName="Harold" animation="Idle" to="300,350"
+					loopAnim="true" delay="3" />
+				<tween entityName="Kumar" animation="Walk" to="250,350"
+					loopAnim="true" delay="3" />
+			</frame>
+			<!-- Frame 6 -->
+			<frame leftImage="face2" rightImage="face1" keySkip="true">
+				<script speaker="Harold">
+					That was pretty sweet!
+				</script>
+				<script speaker="Kumar">
+					I'm going to dance on the spot!
+				</script>
+			</frame>
+			<frame leftImage="face2" rightImage="face1" keySkip="false">
+				<tween entityName="Kumar" animation="Walk" to="250,350"
+					loopAnim="true" delay="3" />
+			</frame>
+			<frame leftImage="face2" rightImage="face1" keySkip="true">
+				<script speaker="Harold">
+					Nice moves, but how about this!?
+				</script>
+			</frame>
+			
+			<frame leftImage="face2" rightImage="face1" keySkip="true">
+				<tween entityName="Harold" animation="Attack" to="300,350"
+					loopAnim="true" delay="3" />
+			</frame>
+		</frames>
+	</scripts>
 </Sequence>
